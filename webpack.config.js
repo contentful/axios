@@ -1,3 +1,5 @@
+const path = require('path')
+
 const {
   addPlugins,
   createConfig,
@@ -11,7 +13,7 @@ const {
 const typescript = require('@webpack-blocks/typescript')
 const uglify = require('@webpack-blocks/uglify')
 
-const path = require('path')
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 
 module.exports = createConfig([
   entryPoint('./src/axios.ts'),
@@ -30,12 +32,16 @@ module.exports = createConfig([
     useBabel: true,
     babelOptions: {
       babelrc: false,
+      plugins: ['lodash'],
       presets: [
         ['@babel/env', { targets: 'last 2 versions, ie 11', modules: false }]
       ]
     },
     babelCore: '@babel/core',
   }),
+  addPlugins([
+    new LodashModuleReplacementPlugin
+  ]),
   env('production', [
     setOutput({
       filename: 'bundle.min.js'

@@ -23,7 +23,7 @@ import XhrAdapter from './adapters/xhr'
 
 import { AxiosRequestConfig } from './interfaces'
 
-let normalizeHeaderName = require('./helpers/normalizeHeaderName')
+import normalizeHeaderName from './helpers/normalizeHeaderName'
 
 let DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'

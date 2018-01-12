@@ -1,26 +1,8 @@
-'use strict';
-
-import {
-  isBuffer,
-  isArray,
-  isArrayBuffer,
-  isString,
-  isNumber,
-  isUndefined,
-  isDate,
-  isObject,
-  isFunction,
-  trim,
-  forEach,
-  merge,
-  extend
-} from 'lodash'
-
-/*global toString:true*/
+import { isObject, isFunction } from 'lodash'
 
 // utils is a library of generic helper functions non-specific to axios
 
-var toString = Object.prototype.toString;
+let toString = Object.prototype.toString
 
 /**
  * Determine if a value is a FormData
@@ -28,8 +10,8 @@ var toString = Object.prototype.toString;
  * @param {Object} val The value to test
  * @returns {boolean} True if value is an FormData, otherwise false
  */
-function isFormData(val) {
-  return (typeof FormData !== 'undefined') && (val instanceof FormData);
+function isFormData (val) {
+  return (typeof FormData !== 'undefined') && (val instanceof FormData)
 }
 
 /**
@@ -38,16 +20,15 @@ function isFormData(val) {
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
  */
-function isArrayBufferView(val) {
-  var result;
+function isArrayBufferView (val) {
+  let result
   if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
-    result = ArrayBuffer.isView(val);
+    result = ArrayBuffer.isView(val)
   } else {
-    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
+    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer)
   }
-  return result;
+  return result
 }
-
 
 /**
  * Determine if a value is a File
@@ -55,8 +36,8 @@ function isArrayBufferView(val) {
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a File, otherwise false
  */
-function isFile(val) {
-  return toString.call(val) === '[object File]';
+function isFile (val) {
+  return toString.call(val) === '[object File]'
 }
 
 /**
@@ -65,8 +46,8 @@ function isFile(val) {
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a Blob, otherwise false
  */
-function isBlob(val) {
-  return toString.call(val) === '[object Blob]';
+function isBlob (val) {
+  return toString.call(val) === '[object Blob]'
 }
 
 /**
@@ -75,8 +56,8 @@ function isBlob(val) {
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a Stream, otherwise false
  */
-function isStream(val) {
-  return isObject(val) && isFunction(val.pipe);
+function isStream (val) {
+  return isObject(val) && isFunction(val.pipe)
 }
 
 /**
@@ -85,8 +66,8 @@ function isStream(val) {
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a URLSearchParams object, otherwise false
  */
-function isURLSearchParams(val) {
-  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
+function isURLSearchParams (val) {
+  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams
 }
 
 /**
@@ -102,35 +83,22 @@ function isURLSearchParams(val) {
  * react-native:
  *  navigator.product -> 'ReactNative'
  */
-function isStandardBrowserEnv() {
+function isStandardBrowserEnv () {
   if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
-    return false;
+    return false
   }
   return (
     typeof window !== 'undefined' &&
     typeof document !== 'undefined'
-  );
+  )
 }
 
 export {
-  isArray,
-  isArrayBuffer,
-  isBuffer,
   isFormData,
   isArrayBufferView,
-  isString,
-  isNumber,
-  isObject,
-  isUndefined,
-  isDate,
   isFile,
   isBlob,
-  isFunction,
   isStream,
   isURLSearchParams,
-  isStandardBrowserEnv,
-  forEach,
-  merge,
-  extend,
-  trim
+  isStandardBrowserEnv
 }

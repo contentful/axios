@@ -4,15 +4,16 @@ import { extend, merge, bind } from 'lodash'
 import Axios from './core/Axios'
 import defaults from './defaults'
 
-export interface MainExport {
-  Axios?: any,
-  create?: any,
-  Cancel?: any,
-  CancelToken?: any,
-  isCancel?: any,
-  all?: any,
-  spread?: any
+export type DefaultAxios = Axios & {
+  create: (instanceConfig: any) => Axios
 }
+
+// Create the default instance to be exported
+let axios = new Axios(defaults) as DefaultAxios
+
+// TODO: remove me, this is bad practice
+// Expose defaults for assigning defaults via object mutation
+axios.defaults = defaults
 
 /**
  * Create an instance of Axios
@@ -20,39 +21,20 @@ export interface MainExport {
  * @param {Object} defaultConfig The default config for the instance
  * @return {Axios} A new instance of Axios
  */
-function createInstance (defaultConfig): MainExport {
-  let context = new Axios(defaultConfig)
-  let instance = bind(Axios.prototype.request, context)
-
-  // Copy axios.prototype to instance
-  extend(instance, Axios.prototype, context)
-
-  // Copy context to instance
-  extend(instance, context)
-
-  return instance as MainExport
-}
-
-// Create the default instance to be exported
-let axios = createInstance(defaults)
-
-// Expose Axios class to allow class inheritance
-axios.Axios = Axios
-
-// Factory for creating new instances
 axios.create = function create (instanceConfig) {
-  return createInstance(merge(defaults, instanceConfig))
+  return new Axios(merge(defaults, instanceConfig))
 }
 
 // Expose Cancel & CancelToken
-axios.Cancel = require('./cancel/Cancel')
-axios.CancelToken = require('./cancel/CancelToken')
-axios.isCancel = require('./cancel/isCancel')
-
-// Expose all/spread
-axios.all = function all (promises) {
-  return Promise.all(promises)
-}
-axios.spread = require('./helpers/spread')
+const Cancel = require('./cancel/Cancel')
+const CancelToken = require('./cancel/CancelToken')
+const isCancel = require('./cancel/isCancel')
 
 export default axios
+
+export {
+  Axios,
+  Cancel,
+  CancelToken,
+  isCancel
+}

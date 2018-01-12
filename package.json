@@ -78,6 +78,8 @@
     "phantomjs-prebuilt": "^2.1.7",
     "rimraf": "^2.6.2",
     "sinon": "^1.17.4",
+    "tslint": "^5.9.1",
+    "tslint-config-standard": "^7.0.0",
     "typescript": "^2.0.3",
     "url-search-params": "^0.6.1",
     "webpack": "^3.10.0",

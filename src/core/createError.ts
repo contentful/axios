@@ -10,7 +10,7 @@ import enhanceError from './enhanceError'
  * @param {Object} [response] The response.
  * @returns {Error} The created error.
  */
-export default function createError (message, config, code, request, response) {
+export default function createError (message, config, code?, request?, response?) {
   let error = new Error(message)
   return enhanceError(error, config, code, request, response)
 }

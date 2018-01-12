@@ -3,22 +3,26 @@
 import { isStream } from './../utils'
 import { isArrayBuffer, isString, extend } from 'lodash'
 
-import { RequestOptions } from 'http'
 import { AxiosResponse } from '../interfaces'
 
-let settle = require('./../core/settle')
+import settle from './../core/settle'
 import buildURL from './../helpers/buildURL'
-let http = require('http')
-let https = require('https')
-let httpFollow = require('follow-redirects').http
-let httpsFollow = require('follow-redirects').https
-let url = require('url')
-let zlib = require('zlib')
-let pkg = require('./../../../package.json')
-let createError = require('../core/createError')
-let enhanceError = require('../core/enhanceError')
+import * as http from 'http'
+import * as https from 'https'
 
-export type AxiosRequestOptions = RequestOptions & {
+import {
+  http as httpFollow,
+  https as httpsFollow
+} from 'follow-redirects'
+
+import * as url from 'url'
+import * as zlib from 'zlib'
+import createError from '../core/createError'
+import enhanceError from '../core/enhanceError'
+
+let pkg = require('./../../../package.json')
+
+export type AxiosRequestOptions = http.RequestOptions & {
   maxRedirects?: number
 }
 

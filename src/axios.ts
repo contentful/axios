@@ -4,7 +4,7 @@ import { extend, merge, bind } from 'lodash'
 import Axios from './core/Axios'
 import defaults from './defaults'
 
-interface MainExport {
+export interface MainExport {
   Axios?: any,
   create?: any,
   Cancel?: any,

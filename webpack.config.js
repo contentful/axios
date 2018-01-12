@@ -16,7 +16,7 @@ const uglify = require('@webpack-blocks/uglify')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 
 module.exports = createConfig([
-  entryPoint('./src/axios.ts'),
+  entryPoint('./src/browser.js'),
   setOutput({
     path: path.resolve(__dirname, 'dist/browser'),
     filename: 'bundle.js',
@@ -57,7 +57,8 @@ module.exports = createConfig([
         },
         mangle: false
       }
-    })
+    }),
+    sourceMaps()
   ]),
   // Axios foo replaces adapter file
   resolve({

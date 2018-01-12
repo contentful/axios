@@ -56,28 +56,50 @@ class Axios {
 
     return promise
   }
-}
 
-// Provide aliases for supported request methods
-forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData (method) {
-  /*eslint func-names:0*/
-  Axios.prototype[method] = function (url, config) {
+  // Provide aliases for supported request methods
+  get (url, config) {
+    return this.methodNoData('get', url, config)
+  }
+
+  delete (url, config) {
+    return this.methodNoData('delete', url, config)
+  }
+
+  head (url, config) {
+    return this.methodNoData('head', url, config)
+  }
+
+  options (url, config) {
+    return this.methodNoData('options', url, config)
+  }
+
+  post (url, data, config) {
+    return this.methodWithData('post', url, data, config)
+  }
+
+  put (url, data, config) {
+    return this.methodWithData('put', url, data, config)
+  }
+
+  patch (url, data, config) {
+    return this.methodWithData('patch', url, data, config)
+  }
+
+  private methodNoData (method, url, config) {
     return this.request(merge(config || {}, {
       method: method,
       url: url
     }))
   }
-})
 
-forEach(['post', 'put', 'patch'], function forEachMethodWithData (method) {
-  /*eslint func-names:0*/
-  Axios.prototype[method] = function (url, data, config) {
+  private methodWithData (method, url, data, config) {
     return this.request(merge(config || {}, {
       method: method,
       url: url,
       data: data
     }))
   }
-})
+}
 
 export default Axios

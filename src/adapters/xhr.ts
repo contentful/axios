@@ -2,11 +2,14 @@
 
 import { isStandardBrowserEnv, isFormData } from './../utils'
 import { forEach } from 'lodash'
+import buildURL from './../helpers/buildURL'
+import getCookiesForEnv from './../helpers/cookies'
 let settle = require('./../core/settle')
-let buildURL = require('./../helpers/buildURL')
 let parseHeaders = require('./../helpers/parseHeaders')
 let isURLSameOrigin = require('./../helpers/isURLSameOrigin')
 let createError = require('../core/createError')
+
+const cookies = getCookiesForEnv()
 
 export default function xhrAdapter (config) {
   return new Promise(function dispatchXhrRequest (resolve, reject) {
@@ -88,8 +91,6 @@ export default function xhrAdapter (config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (isStandardBrowserEnv()) {
-      let cookies = require('./../helpers/cookies')
-
       // Add xsrf header
       let xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
           cookies.read(config.xsrfCookieName) :

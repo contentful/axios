@@ -7,7 +7,7 @@ import { RequestOptions } from 'http'
 import { AxiosResponse } from '../interfaces'
 
 let settle = require('./../core/settle')
-let buildURL = require('./../helpers/buildURL')
+import buildURL from './../helpers/buildURL'
 let http = require('http')
 let https = require('https')
 let httpFollow = require('follow-redirects').http

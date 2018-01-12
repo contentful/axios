@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Update an Error with the specified config, error code, and response.
  *
@@ -10,12 +8,12 @@
  * @param {Object} [response] The response.
  * @returns {Error} The error.
  */
-module.exports = function enhanceError(error, config, code, request, response) {
-  error.config = config;
+export default function enhanceError (error, config, code, request, response) {
+  error.config = config
   if (code) {
-    error.code = code;
+    error.code = code
   }
-  error.request = request;
-  error.response = response;
-  return error;
-};
+  error.request = request
+  error.response = response
+  return error
+}

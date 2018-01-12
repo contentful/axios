@@ -1,6 +1,4 @@
-'use strict';
-
-var createError = require('./createError');
+import createError from './createError'
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -9,11 +7,11 @@ var createError = require('./createError');
  * @param {Function} reject A function that rejects the promise.
  * @param {object} response The response.
  */
-module.exports = function settle(resolve, reject, response) {
-  var validateStatus = response.config.validateStatus;
+export default function settle (resolve, reject, response) {
+  let validateStatus = response.config.validateStatus
   // Note: status is not exposed by XDomainRequest
   if (!response.status || !validateStatus || validateStatus(response.status)) {
-    resolve(response);
+    resolve(response)
   } else {
     reject(createError(
       'Request failed with status code ' + response.status,
@@ -21,6 +19,6 @@ module.exports = function settle(resolve, reject, response) {
       null,
       response.request,
       response
-    ));
+    ))
   }
-};
+}

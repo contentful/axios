@@ -4,12 +4,13 @@ import { isStandardBrowserEnv, isFormData } from './../utils'
 import { forEach } from 'lodash'
 import buildURL from './../helpers/buildURL'
 import getCookiesForEnv from './../helpers/cookies'
+import getSameOriginCheckForEnv from '../helpers/isURLSameOrigin'
 let settle = require('./../core/settle')
 let parseHeaders = require('./../helpers/parseHeaders')
-let isURLSameOrigin = require('./../helpers/isURLSameOrigin')
 let createError = require('../core/createError')
 
 const cookies = getCookiesForEnv()
+const isURLSameOrigin = getSameOriginCheckForEnv()
 
 export default function xhrAdapter (config) {
   return new Promise(function dispatchXhrRequest (resolve, reject) {

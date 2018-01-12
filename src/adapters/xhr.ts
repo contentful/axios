@@ -6,8 +6,8 @@ import buildURL from './../helpers/buildURL'
 import getCookiesForEnv from './../helpers/cookies'
 import getSameOriginCheckForEnv from '../helpers/isURLSameOrigin'
 import parseHeaders from './../helpers/parseHeaders'
-let settle = require('./../core/settle')
-let createError = require('../core/createError')
+import settle from './../core/settle'
+import createError from '../core/createError'
 
 const cookies = getCookiesForEnv()
 const isURLSameOrigin = getSameOriginCheckForEnv()

@@ -26,9 +26,9 @@ axios.create = function create (instanceConfig) {
 }
 
 // Expose Cancel & CancelToken
-const Cancel = require('./cancel/Cancel')
-const CancelToken = require('./cancel/CancelToken')
-const isCancel = require('./cancel/isCancel')
+import Cancel from './cancel/Cancel'
+import CancelToken from './cancel/CancelToken'
+import isCancel from './cancel/isCancel'
 
 export default axios
 

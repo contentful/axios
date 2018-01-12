@@ -4,8 +4,8 @@ import { merge, forEach } from 'lodash'
 import transformData from './transformData'
 import combineURLs from './../helpers/combineURLs'
 import isAbsoluteURL from './../helpers/isAbsoluteURL'
-let isCancel = require('../cancel/isCancel')
-let defaults = require('../defaults')
+import isCancel from '../cancel/isCancel'
+import defaults from '../defaults'
 
 /**
  * Throws a `Cancel` if cancellation has been requested.

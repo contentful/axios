@@ -1,7 +1,7 @@
 'use strict'
 
 import { merge, forEach } from 'lodash'
-let transformData = require('./transformData')
+import transformData from './transformData'
 let isCancel = require('../cancel/isCancel')
 let defaults = require('../defaults')
 let isAbsoluteURL = require('./../helpers/isAbsoluteURL')

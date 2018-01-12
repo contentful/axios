@@ -1,7 +1,4 @@
-'use strict';
-
-var utils = require('./../utils');
-
+import { isArray, forEach } from 'lodash'
 /**
  * Transform the data for a request or a response
  *
@@ -10,11 +7,16 @@ var utils = require('./../utils');
  * @param {Array|Function} fns A single function or Array of functions
  * @returns {*} The resulting transformed data
  */
-module.exports = function transformData(data, headers, fns) {
-  /*eslint no-param-reassign:0*/
-  utils.forEach(fns, function transform(fn) {
-    data = fn(data, headers);
-  });
+export default function transformData (data, headers, fns) {
+  let transformers = fns
 
-  return data;
-};
+  if (!isArray(fns)) {
+    transformers = [fns]
+  }
+
+  forEach(transformers, function transform (fn) {
+    data = fn(data, headers)
+  })
+
+  return data
+}

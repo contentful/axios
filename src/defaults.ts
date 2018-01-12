@@ -18,6 +18,11 @@ import {
   merge
 } from 'lodash'
 
+import HttpAdapter from './adapters/http'
+import XhrAdapter from './adapters/xhr'
+
+import { AxiosRequestConfig } from './interfaces'
+
 let normalizeHeaderName = require('./helpers/normalizeHeaderName')
 
 let DEFAULT_CONTENT_TYPE = {
@@ -30,48 +35,16 @@ function setContentTypeIfUnset (headers, value) {
   }
 }
 
-function getDefaultAdapter () {
-  let adapter
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = require('./adapters/xhr')
-  } else if (typeof process !== 'undefined') {
-    // For node use HTTP adapter
-    adapter = require('./adapters/http')
-  }
-  return adapter
-}
+let defaultAdapter
 
-export interface AxiosRequestConfig {
-  url?: string
-  method?: string
-  baseURL?: string
-  transformRequest?: any // AxiosTransformer | AxiosTransformer[]
-  transformResponse?: any // AxiosTransformer | AxiosTransformer[]
-  headers?: any
-  params?: any
-  paramsSerializer?: (params: any) => string
-  data?: any
-  timeout?: number
-  withCredentials?: boolean
-  adapter?: any // AxiosAdapter
-  auth?: any // AxiosBasicCredentials
-  responseType?: string
-  xsrfCookieName?: string
-  xsrfHeaderName?: string
-  onUploadProgress?: (progressEvent: any) => void
-  onDownloadProgress?: (progressEvent: any) => void
-  maxContentLength?: number
-  validateStatus?: (status: number) => boolean
-  maxRedirects?: number
-  httpAgent?: any
-  httpsAgent?: any
-  proxy?: any // AxiosProxyConfig | false
-  cancelToken?: any // CancelToken
+if (process.env.TARGET_ENV === 'browser') {
+  defaultAdapter = XhrAdapter
+} else {
+  defaultAdapter = HttpAdapter
 }
 
 let defaults: AxiosRequestConfig = {
-  adapter: getDefaultAdapter(),
+  adapter: defaultAdapter,
 
   transformRequest: [function transformRequest (data, headers) {
     normalizeHeaderName(headers, 'Content-Type')

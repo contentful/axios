@@ -2,10 +2,10 @@
 
 import { merge, forEach } from 'lodash'
 import transformData from './transformData'
+import combineURLs from './../helpers/combineURLs'
+import isAbsoluteURL from './../helpers/isAbsoluteURL'
 let isCancel = require('../cancel/isCancel')
 let defaults = require('../defaults')
-let isAbsoluteURL = require('./../helpers/isAbsoluteURL')
-let combineURLs = require('./../helpers/combineURLs')
 
 /**
  * Throws a `Cancel` if cancellation has been requested.

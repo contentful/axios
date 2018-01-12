@@ -3,7 +3,7 @@
 import { isStandardBrowserEnv } from './../utils'
 import { isString } from 'lodash'
 
-interface SameOriginCheck {
+export interface SameOriginCheck {
   (requestURL: string): boolean
 }
 

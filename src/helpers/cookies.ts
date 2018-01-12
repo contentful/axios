@@ -1,7 +1,7 @@
 import { isStandardBrowserEnv } from './../utils'
 import { isNumber, isString } from 'lodash'
 
-interface BrowserEnvCookie {
+export interface BrowserEnvCookie {
   read: (name) => string,
   write: (...args: any[]) => void
   remove: (name: string) => void

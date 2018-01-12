@@ -7,13 +7,13 @@ import { AxiosResponse } from '../interfaces'
 
 import settle from './../core/settle'
 import buildURL from './../helpers/buildURL'
+
 import * as http from 'http'
 import * as https from 'https'
 
-import {
-  http as httpFollow,
-  https as httpsFollow
-} from 'follow-redirects'
+// TODO: untyped library
+const httpFollow = require('follow-redirects').http
+const httpsFollow = require('follow-redirects').https
 
 import * as url from 'url'
 import * as zlib from 'zlib'

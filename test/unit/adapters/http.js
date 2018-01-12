@@ -1,4 +1,4 @@
-var axios = require('../../../index');
+var axios = require('../../..');
 var http = require('http');
 var url = require('url');
 var zlib = require('zlib');

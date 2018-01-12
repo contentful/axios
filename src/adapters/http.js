@@ -9,7 +9,7 @@ var httpFollow = require('follow-redirects').http;
 var httpsFollow = require('follow-redirects').https;
 var url = require('url');
 var zlib = require('zlib');
-var pkg = require('./../../package.json');
+var pkg = require('./../../../package.json');
 var createError = require('../core/createError');
 var enhanceError = require('../core/enhanceError');
 

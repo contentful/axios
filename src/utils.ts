@@ -1,6 +1,5 @@
 'use strict';
 
-var bind = require('./helpers/bind');
 import {
   isBuffer,
   isArray,

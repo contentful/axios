@@ -1,9 +1,18 @@
 'use strict';
 
-var utils = require('./utils');
-var bind = require('./helpers/bind');
-var Axios = require('./core/Axios');
+import { extend, merge, bind } from 'lodash'
+import Axios from './core/Axios'
 var defaults = require('./defaults');
+
+interface MainExport {
+  Axios?: any,
+  create?: any,
+  Cancel?: any,
+  CancelToken?: any,
+  isCancel?: any,
+  all?: any,
+  spread?: any
+}
 
 /**
  * Create an instance of Axios
@@ -11,17 +20,17 @@ var defaults = require('./defaults');
  * @param {Object} defaultConfig The default config for the instance
  * @return {Axios} A new instance of Axios
  */
-function createInstance(defaultConfig) {
+function createInstance(defaultConfig): MainExport {
   var context = new Axios(defaultConfig);
   var instance = bind(Axios.prototype.request, context);
 
   // Copy axios.prototype to instance
-  utils.extend(instance, Axios.prototype, context);
+  extend(instance, Axios.prototype, context);
 
   // Copy context to instance
-  utils.extend(instance, context);
+  extend(instance, context);
 
-  return instance;
+  return instance as MainExport;
 }
 
 // Create the default instance to be exported
@@ -32,7 +41,7 @@ axios.Axios = Axios;
 
 // Factory for creating new instances
 axios.create = function create(instanceConfig) {
-  return createInstance(utils.merge(defaults, instanceConfig));
+  return createInstance(merge(defaults, instanceConfig));
 };
 
 // Expose Cancel & CancelToken
@@ -46,7 +55,4 @@ axios.all = function all(promises) {
 };
 axios.spread = require('./helpers/spread');
 
-module.exports = axios;
-
-// Allow use of default import syntax in TypeScript
-module.exports.default = axios;
+export default axios

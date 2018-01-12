@@ -1,7 +1,7 @@
 'use strict';
 
 var defaults = require('./../defaults');
-var utils = require('./../utils');
+import { merge, forEach } from 'lodash'
 var InterceptorManager = require('./InterceptorManager');
 var dispatchRequest = require('./dispatchRequest');
 
@@ -27,12 +27,12 @@ Axios.prototype.request = function request(config) {
   /*eslint no-param-reassign:0*/
   // Allow for axios('example/url'[, config]) a la fetch API
   if (typeof config === 'string') {
-    config = utils.merge({
+    config = merge({
       url: arguments[0]
     }, arguments[1]);
   }
 
-  config = utils.merge(defaults, this.defaults, { method: 'get' }, config);
+  config = merge(defaults, this.defaults, { method: 'get' }, config);
   config.method = config.method.toLowerCase();
 
   // Hook up interceptors middleware
@@ -55,20 +55,20 @@ Axios.prototype.request = function request(config) {
 };
 
 // Provide aliases for supported request methods
-utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
+forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
   /*eslint func-names:0*/
   Axios.prototype[method] = function(url, config) {
-    return this.request(utils.merge(config || {}, {
+    return this.request(merge(config || {}, {
       method: method,
       url: url
     }));
   };
 });
 
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
   /*eslint func-names:0*/
   Axios.prototype[method] = function(url, data, config) {
-    return this.request(utils.merge(config || {}, {
+    return this.request(merge(config || {}, {
       method: method,
       url: url,
       data: data
@@ -76,4 +76,4 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
   };
 });
 
-module.exports = Axios;
+export default Axios;

@@ -1,5 +1,5 @@
-var isCancel = require('../../../lib/cancel/isCancel');
-var Cancel = require('../../../lib/cancel/Cancel');
+var isCancel = require('../../../src/cancel/isCancel');
+var Cancel = require('../../../src/cancel/Cancel');
 
 describe('isCancel', function() {
   it('returns true if value is a Cancel', function() {

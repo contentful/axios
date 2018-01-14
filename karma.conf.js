@@ -2,6 +2,7 @@
 // Generated on Fri Aug 15 2014 23:11:13 GMT-0500 (CDT)
 
 var webpack = require('webpack');
+var webpackConfig = require('./webpack.config');
 
 function createCustomLauncher(browser, version, platform) {
   return {
@@ -104,7 +105,7 @@ module.exports = function(config) {
     browsers = ['Firefox'];
   } else {
     console.log('Running locally since SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables are not set.');
-    browsers = ['Firefox', 'Chrome', 'Safari', 'Opera'];
+    browsers = ['Chrome']; // , 'Firefox', 'Safari', 'Opera'];
   }
 
   config.set({
@@ -178,29 +179,7 @@ module.exports = function(config) {
     singleRun: false,
 
     // Webpack config
-    webpack: {
-      cache: true,
-      devtool: 'inline-source-map',
-      module: {
-        postLoaders: [
-          {
-            test: /\.js$/,
-            exclude: /(node_modules|test)/,
-            loader: 'istanbul-instrumenter'
-          }
-        ]
-      },
-      externals: [
-        {
-          './adapters/http': 'var undefined'
-        }
-      ],
-      plugins: [
-        new webpack.DefinePlugin({
-          'process.env.NODE_ENV': JSON.stringify('test')
-        })
-      ]
-    },
+    webpack: webpackConfig,
 
     webpackServer: {
       stats: {

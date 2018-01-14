@@ -5,6 +5,7 @@
   "main": "./dist/commonjs/axios.js",
   "scripts": {
     "test": "grunt test && bundlesize",
+    "test:karma": "NODE_ENV=test karma start --single-run",
     "start": "node ./sandbox/server.js",
     "clean": "rimraf dist",
     "mjs": "tsc -p ./tsconfig.esm.json",
@@ -71,7 +72,7 @@
     "karma-sauce-launcher": "^1.1.0",
     "karma-sinon": "^1.0.5",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^1.7.0",
+    "karma-webpack": "^2.0.9",
     "load-grunt-tasks": "^3.5.2",
     "lodash-webpack-plugin": "^0.11.4",
     "minimist": "^1.2.0",

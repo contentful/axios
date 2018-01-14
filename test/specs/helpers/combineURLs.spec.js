@@ -1,4 +1,4 @@
-var combineURLs = require('../../../lib/helpers/combineURLs');
+var combineURLs = require('../../../src/helpers/combineURLs');
 
 describe('helpers::combineURLs', function () {
   it('should combine URLs', function () {

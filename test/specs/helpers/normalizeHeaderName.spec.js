@@ -1,4 +1,4 @@
-var normalizeHeaderName = require('../../../lib/helpers/normalizeHeaderName');
+var normalizeHeaderName = require('../../../src/helpers/normalizeHeaderName');
 
 describe('helpers::normalizeHeaderName', function () {
   it('should normalize matching header name', function () {

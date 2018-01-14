@@ -1,4 +1,4 @@
-var extend = require('../../../lib/utils').extend;
+var extend = require('../../../src/utils').extend;
 
 describe('utils::extend', function () {
   it('should be mutable', function () {
@@ -9,7 +9,7 @@ describe('utils::extend', function () {
 
     expect(a.foo).toEqual(b.foo);
   });
-  
+
   it('should extend properties', function () {
     var a = {foo: 123, bar: 456};
     var b = {bar: 789};

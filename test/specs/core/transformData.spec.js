@@ -1,4 +1,4 @@
-var transformData = require('../../../lib/core/transformData');
+var transformData = require('../../../src/core/transformData');
 
 describe('core::transformData', function () {
   it('should support a single transformer', function () {

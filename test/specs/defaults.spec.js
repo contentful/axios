@@ -1,5 +1,5 @@
-var defaults = require('../../lib/defaults');
-var utils = require('../../lib/utils');
+var defaults = require('../../src/defaults');
+var utils = require('../../src/utils');
 
 describe('defaults', function () {
   var XSRF_COOKIE_NAME = 'CUSTOM-XSRF-TOKEN';

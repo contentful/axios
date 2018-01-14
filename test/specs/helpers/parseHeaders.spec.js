@@ -1,4 +1,4 @@
-var parseHeaders = require('../../../lib/helpers/parseHeaders');
+var parseHeaders = require('../../../src/helpers/parseHeaders');
 
 describe('helpers::parseHeaders', function () {
   it('should parse headers', function () {

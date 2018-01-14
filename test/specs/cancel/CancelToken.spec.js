@@ -1,5 +1,5 @@
-var CancelToken = require('../../../lib/cancel/CancelToken');
-var Cancel = require('../../../lib/cancel/Cancel');
+var CancelToken = require('../../../src/cancel/CancelToken');
+var Cancel = require('../../../src/cancel/Cancel');
 
 describe('CancelToken', function() {
   describe('constructor', function() {

@@ -1,4 +1,4 @@
-var buildURL = require('../../../lib/helpers/buildURL');
+var buildURL = require('../../../src/helpers/buildURL');
 var URLSearchParams = require('url-search-params');
 
 describe('helpers::buildURL', function () {

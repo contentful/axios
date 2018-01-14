@@ -1,4 +1,4 @@
-var cookies = require('../../../lib/helpers/cookies');
+var cookies = require('../../../src/helpers/cookies');
 
 describe('helpers::cookies', function () {
   afterEach(function () {

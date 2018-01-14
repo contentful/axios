@@ -1,4 +1,4 @@
-var settle = require('../../../lib/core/settle');
+var settle = require('../../../src/core/settle');
 
 describe('core::settle', function() {
   var resolve;

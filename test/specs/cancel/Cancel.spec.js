@@ -1,4 +1,4 @@
-var Cancel = require('../../../lib/cancel/Cancel');
+var Cancel = require('../../../src/cancel/Cancel');
 
 describe('Cancel', function() {
   describe('toString', function() {

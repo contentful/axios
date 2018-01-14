@@ -60,6 +60,9 @@ module.exports = createConfig([
     }),
     sourceMaps()
   ]),
+  env('test', [
+    sourceMaps('inline-source-map')
+  ]),
   // Axios foo replaces adapter file
   resolve({
     alias: {

@@ -1,4 +1,4 @@
-var forEach = require('../../../lib/utils').forEach;
+var forEach = require('../../../src/utils').forEach;
 
 describe('utils::forEach', function () {
   it('should loop over an array', function () {

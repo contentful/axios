@@ -1,4 +1,4 @@
-var merge = require('../../../lib/utils').merge;
+var merge = require('../../../src/utils').merge;
 
 describe('utils::merge', function () {
   it('should be immutable', function () {
@@ -13,7 +13,7 @@ describe('utils::merge', function () {
     expect(typeof b.bar).toEqual('undefined');
     expect(typeof c.foo).toEqual('undefined');
   });
-  
+
   it('should merge properties', function () {
     var a = {foo: 123};
     var b = {bar: 456};
@@ -27,7 +27,7 @@ describe('utils::merge', function () {
   it('should merge recursively', function () {
     var a = {foo: {bar: 123}};
     var b = {foo: {baz: 456}, bar: {qux: 789}};
-    
+
     expect(merge(a, b)).toEqual({
       foo: {
         bar: 123,

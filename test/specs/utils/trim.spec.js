@@ -1,4 +1,4 @@
-var trim = require('../../../lib/utils').trim;
+var trim = require('../../../src/utils').trim;
 
 describe('utils::trim', function () {
   it('should trim spaces', function () {

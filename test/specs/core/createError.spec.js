@@ -1,4 +1,4 @@
-var createError = require('../../../lib/core/createError');
+var createError = require('../../../src/core/createError');
 
 describe('core::createError', function() {
   it('should create an Error with message, config, code, request and response', function() {

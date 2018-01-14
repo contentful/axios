@@ -1,4 +1,4 @@
-var enhanceError = require('../../../lib/core/enhanceError');
+var enhanceError = require('../../../src/core/enhanceError');
 
 describe('core::enhanceError', function() {
   it('should add config, config, request and response to error', function() {

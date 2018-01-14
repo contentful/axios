@@ -6,6 +6,7 @@ import combineURLs from './../helpers/combineURLs'
 import isAbsoluteURL from './../helpers/isAbsoluteURL'
 import isCancel from '../cancel/isCancel'
 import defaults from '../defaults'
+import { AxiosRequestConfig, AxiosPromise } from '../interfaces'
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -22,7 +23,7 @@ function throwIfCancellationRequested (config) {
  * @param {object} config The config that is to be used for the request
  * @returns {Promise} The Promise to be fulfilled
  */
-function dispatchRequest (config) {
+export default function dispatchRequest (config: AxiosRequestConfig): AxiosPromise {
   throwIfCancellationRequested(config)
 
   // Support baseURL config
@@ -84,5 +85,3 @@ function dispatchRequest (config) {
     return Promise.reject(reason)
   })
 }
-
-export default dispatchRequest

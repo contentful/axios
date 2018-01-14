@@ -4,20 +4,26 @@ import defaults from './../defaults'
 import { merge, forEach } from 'lodash'
 import InterceptorManager from './InterceptorManager'
 import dispatchRequest from './dispatchRequest'
+import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from '../interfaces'
+
+export type HttpVerb = 'get' | 'put' | 'post' | 'delete' | 'options' | 'head' | 'patch'
 
 class Axios {
-  public defaults
-  private interceptors
+  public defaults: AxiosRequestConfig
+  private interceptors: {
+    request: InterceptorManager<AxiosRequestConfig>
+    response: InterceptorManager<AxiosResponse>
+  }
   /**
    * Create a new instance of Axios
    *
    * @param {Object} instanceConfig The default config for the instance
    */
-  constructor (instanceConfig) {
+  constructor (instanceConfig: AxiosRequestConfig) {
     this.defaults = instanceConfig
     this.interceptors = {
-      request: new InterceptorManager(),
-      response: new InterceptorManager()
+      request: new InterceptorManager<AxiosRequestConfig>(),
+      response: new InterceptorManager<AxiosResponse>()
     }
   }
 
@@ -26,7 +32,7 @@ class Axios {
    *
    * @param {Object} config The config specific for this request (merged with this.defaults)
    */
-  request (config) {
+  request<T = any> (config: AxiosRequestConfig): AxiosPromise<T> {
     /*eslint no-param-reassign:0*/
     // Allow for axios('example/url'[, config]) a la fetch API
     if (typeof config === 'string') {
@@ -39,62 +45,51 @@ class Axios {
     config.method = config.method.toLowerCase()
 
     // Hook up interceptors middleware
-    let chain = [dispatchRequest, undefined]
-    let promise = Promise.resolve(config)
+    const finalConfig = this.interceptors.request.apply(Promise.resolve(config))
+    const request = finalConfig.then(dispatchRequest)
+    const finalResponse = this.interceptors.response.apply(request)
 
-    this.interceptors.request.forEach(function unshiftRequestInterceptors (interceptor) {
-      chain.unshift(interceptor.fulfilled, interceptor.rejected)
-    })
-
-    this.interceptors.response.forEach(function pushResponseInterceptors (interceptor) {
-      chain.push(interceptor.fulfilled, interceptor.rejected)
-    })
-
-    while (chain.length) {
-      promise = promise.then(chain.shift(), chain.shift())
-    }
-
-    return promise
+    return finalResponse
   }
 
   // Provide aliases for supported request methods
-  get (url, config) {
-    return this.methodNoData('get', url, config)
+  get<T = any> (url: string, config?: AxiosRequestConfig) {
+    return this.methodNoData<T>('get', url, config)
   }
 
-  delete (url, config) {
+  delete (url: string, config?: AxiosRequestConfig) {
     return this.methodNoData('delete', url, config)
   }
 
-  head (url, config) {
+  head (url: string, config?: AxiosRequestConfig) {
     return this.methodNoData('head', url, config)
   }
 
-  options (url, config) {
+  options (url: string, config?: AxiosRequestConfig) {
     return this.methodNoData('options', url, config)
   }
 
-  post (url, data, config) {
-    return this.methodWithData('post', url, data, config)
+  post<T = any> (url: string, data: any, config?: AxiosRequestConfig) {
+    return this.methodWithData<T>('post', url, data, config)
   }
 
-  put (url, data, config) {
-    return this.methodWithData('put', url, data, config)
+  put<T = any> (url: string, data: any, config?: AxiosRequestConfig) {
+    return this.methodWithData<T>('put', url, data, config)
   }
 
-  patch (url, data, config) {
-    return this.methodWithData('patch', url, data, config)
+  patch<T = any> (url: string, data: any, config?: AxiosRequestConfig) {
+    return this.methodWithData<T>('patch', url, data, config)
   }
 
-  private methodNoData (method, url, config) {
-    return this.request(merge(config || {}, {
+  private methodNoData<T = any> (method: HttpVerb, url: string, config: AxiosRequestConfig = {}) {
+    return this.request<T>(merge(config, {
       method: method,
       url: url
     }))
   }
 
-  private methodWithData (method, url, data, config) {
-    return this.request(merge(config || {}, {
+  private methodWithData<T = any> (method: HttpVerb, url: string, data: any, config: AxiosRequestConfig = {}) {
+    return this.request<T>(merge(config, {
       method: method,
       url: url,
       data: data

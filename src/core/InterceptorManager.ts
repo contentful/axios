@@ -1,6 +1,11 @@
 import { forEach } from 'lodash'
 
-export default class InterceptorManager {
+export interface Interceptor<V> {
+  fulfilled: (value: V) => V | Promise<V>
+  rejected: (error: any) => any
+}
+
+export default class InterceptorManager<V> {
   private handlers: any[]
 
   constructor () {
@@ -15,7 +20,7 @@ export default class InterceptorManager {
    *
    * @return {Number} An ID used to remove interceptor later
    */
-  use (fulfilled, rejected) {
+  use (fulfilled: Interceptor<V>['fulfilled'], rejected: Interceptor<V>['rejected']) {
     this.handlers.push({
       fulfilled: fulfilled,
       rejected: rejected
@@ -28,25 +33,36 @@ export default class InterceptorManager {
    *
    * @param {Number} id The ID that was returned by `use`
    */
-  eject (id) {
+  eject (id: number) {
     if (this.handlers[id]) {
       this.handlers[id] = null
     }
   }
 
   /**
-   * Iterate over all the registered interceptors
+   * Get all the registered interceptors
    *
-   * This method is particularly useful for skipping over any
-   * interceptors that may have become `null` calling `eject`.
+   * This method is skipping any interceptors that
+   * may have become `null` calling `eject`.
    *
-   * @param {Function} fn The function to call for each interceptor
    */
-  forEach (fn) {
-    forEach(this.handlers, function forEachHandler (h) {
-      if (h !== null) {
-        fn(h)
-      }
-    })
+  values (): Interceptor<V>[] {
+    return this.handlers.filter((h) => h !== null)
+  }
+
+  /**
+   * Applies all interceptor to the seed promise
+   *
+   * @param {Promise<V>} seed start promise to chain onto
+   */
+  apply (seed: Promise<V>): Promise<V> {
+    let promise = seed
+
+    for (const interceptor of this.values()) {
+      const { fulfilled, rejected } = interceptor
+      promise = promise.then(fulfilled, rejected)
+    }
+
+    return promise
   }
 }

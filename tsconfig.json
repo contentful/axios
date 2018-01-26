@@ -5,7 +5,8 @@
     "rootDir": "src",
     "outDir": "dist",
     "sourceMap": false,
-    "strict": false
+    "strict": false ,
+    "moduleResolution": "node"
   },
   "include": [
     "./src/**/*"

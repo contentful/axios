@@ -93,7 +93,7 @@ describe('interceptors', function () {
   })
 
   it('should add a response interceptor', function (done) {
-    var response
+    let response
 
     axios.interceptors.response.use(function (data) {
       data.data = data.data + ' - modified by interceptor'
@@ -118,7 +118,7 @@ describe('interceptors', function () {
   })
 
   it('should add a response interceptor that returns a new data object', function (done) {
-    var response
+    let response
 
     axios.interceptors.response.use(function () {
       return {
@@ -144,7 +144,7 @@ describe('interceptors', function () {
   })
 
   it('should add a response interceptor that returns a promise', function (done) {
-    var response
+    let response
 
     axios.interceptors.response.use(function (data) {
       return new Promise(function (resolve) {
@@ -174,7 +174,7 @@ describe('interceptors', function () {
   })
 
   it('should add multiple response interceptors', function (done) {
-    var response
+    let response
 
     axios.interceptors.response.use(function (data) {
       data.data = data.data + '1'
@@ -207,7 +207,7 @@ describe('interceptors', function () {
   })
 
   it('should allow removing interceptors', function (done) {
-    var response, intercept
+    let response, intercept
 
     axios.interceptors.response.use(function (data) {
       data.data = data.data + '1'
@@ -258,7 +258,7 @@ describe('interceptors', function () {
   })
 
   it('should modify base URL in request interceptor', function (done) {
-    var instance = axios.create({
+    const instance = axios.create({
       baseURL: 'http://test.com/'
     })
 

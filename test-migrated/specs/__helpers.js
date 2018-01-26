@@ -16,34 +16,34 @@ isOldIE = /MSIE (8|9)\.0/.test(navigator.userAgent)
 
 // Get Ajax request using an increasing timeout to retry
 getAjaxRequest = (function () {
-  var attempts = 0
-var MAX_ATTEMPTS = 5
-var ATTEMPT_DELAY_FACTOR = 5
+  let attempts = 0
+  const MAX_ATTEMPTS = 5
+  const ATTEMPT_DELAY_FACTOR = 5
 
-function getAjaxRequest () {
-  return new Promise(function (resolve, reject) {
-    attempts = 0
-    attemptGettingAjaxRequest(resolve, reject)
-  })
-}
-
-  function attemptGettingAjaxRequest (resolve, reject) {
-  var delay = attempts * attempts * ATTEMPT_DELAY_FACTOR
-
-  if (attempts++ > MAX_ATTEMPTS) {
-    reject(new Error('No request was found'))
-    return;
+  function getAjaxRequest () {
+    return new Promise(function (resolve, reject) {
+      attempts = 0
+      attemptGettingAjaxRequest(resolve, reject)
+    })
   }
 
-  setTimeout(function () {
-    var request = jasmine.Ajax.requests.mostRecent()
-    if (request) {
-      resolve(request)
-    } else {
-      attemptGettingAjaxRequest(resolve, reject)
+  function attemptGettingAjaxRequest (resolve, reject) {
+    const delay = attempts * attempts * ATTEMPT_DELAY_FACTOR
+
+    if (attempts++ > MAX_ATTEMPTS) {
+      reject(new Error('No request was found'))
+      return
     }
-  }, delay)
-}
+
+    setTimeout(function () {
+      const request = jasmine.Ajax.requests.mostRecent()
+      if (request) {
+        resolve(request)
+      } else {
+        attemptGettingAjaxRequest(resolve, reject)
+      }
+    }, delay)
+  }
 
   return getAjaxRequest
 })()
@@ -51,7 +51,7 @@ function getAjaxRequest () {
 // Validate an invalid character error
 validateInvalidCharacterError = function validateInvalidCharacterError (error) {
   expect(/character/i.test(error.message)).toEqual(true)
-};
+}
 
 // Setup basic auth tests
 setupBasicAuthTest = function setupBasicAuthTest () {
@@ -72,7 +72,7 @@ setupBasicAuthTest = function setupBasicAuthTest () {
     })
 
     setTimeout(function () {
-      var request = jasmine.Ajax.requests.mostRecent()
+      const request = jasmine.Ajax.requests.mostRecent()
 
       expect(request.requestHeaders['Authorization']).toEqual('Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==')
       done()
@@ -92,4 +92,4 @@ setupBasicAuthTest = function setupBasicAuthTest () {
       done()
     })
   })
-};
+}

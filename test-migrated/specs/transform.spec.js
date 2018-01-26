@@ -12,7 +12,7 @@ describe('transform', function () {
   })
 
   it('should transform JSON to string', function (done) {
-    var data = {
+    const data = {
       foo: 'bar'
     }
 
@@ -25,7 +25,7 @@ describe('transform', function () {
   })
 
   it('should transform string to JSON', function (done) {
-    var response
+    let response
 
     axios.get('/foo').then(function (data) {
       response = data
@@ -46,7 +46,7 @@ describe('transform', function () {
   })
 
   it('should override default transform', function (done) {
-    var data = {
+    const data = {
       foo: 'bar'
     }
 
@@ -63,7 +63,7 @@ describe('transform', function () {
   })
 
   it('should allow an Array of transformers', function (done) {
-    var data = {
+    const data = {
       foo: 'bar'
     }
 
@@ -82,7 +82,7 @@ describe('transform', function () {
   })
 
   it('should allowing mutating headers', function (done) {
-    var token = Math.floor(Math.random() * Math.pow(2, 64)).toString(36)
+    const token = Math.floor(Math.random() * Math.pow(2, 64)).toString(36)
 
     axios.get('/foo', {
       transformRequest: function (data, headers) {

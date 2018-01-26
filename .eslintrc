@@ -9,5 +9,9 @@
     "browser": true,
     "node": true,
     "jasmine": true
+  },
+  "rules": {
+    "no-var": "warn",
+    "prefer-const": "error"
   }
 }

@@ -41,7 +41,7 @@ class Axios {
       }, arguments[1])
     }
 
-    config = merge(defaults, this.defaults, { method: 'get' }, config)
+    config = merge({}, defaults, this.defaults, { method: 'get' }, config)
     config.method = config.method.toLowerCase()
 
     // Hook up interceptors middleware

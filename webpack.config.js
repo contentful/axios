@@ -37,10 +37,12 @@ module.exports = createConfig([
         ['@babel/env', { targets: 'last 2 versions, ie 11', modules: false }]
       ]
     },
-    babelCore: '@babel/core',
+    babelCore: '@babel/core'
   }),
   addPlugins([
-    new LodashModuleReplacementPlugin
+    new LodashModuleReplacementPlugin({
+      collections: true
+    })
   ]),
   env('production', [
     setOutput({

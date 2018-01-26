@@ -1,4 +1,5 @@
-import { isArray, forEach } from 'lodash'
+import { isArray, forEach, isFunction } from 'lodash'
+import { AxiosTransformer } from '../interfaces'
 /**
  * Transform the data for a request or a response
  *
@@ -7,7 +8,7 @@ import { isArray, forEach } from 'lodash'
  * @param {Array|Function} fns A single function or Array of functions
  * @returns {*} The resulting transformed data
  */
-export default function transformData (data, headers, fns) {
+export default function transformData (data, headers, fns: AxiosTransformer | AxiosTransformer[]) {
   let transformers = fns
 
   if (!isArray(fns)) {
@@ -15,7 +16,10 @@ export default function transformData (data, headers, fns) {
   }
 
   forEach(transformers, function transform (fn) {
-    data = fn(data, headers)
+    // TODO: allow only transformer in fns
+    if (isFunction(fn)) {
+      data = fn(data, headers)
+    }
   })
 
   return data

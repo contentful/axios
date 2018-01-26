@@ -43,6 +43,7 @@ export default function dispatchRequest (config: AxiosRequestConfig): AxiosPromi
 
   // Flatten headers
   config.headers = merge(
+    {},
     config.headers.common || {},
     config.headers[config.method] || {},
     config.headers || {}

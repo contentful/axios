@@ -1,4 +1,6 @@
-import cookies from '../../../src/helpers/cookies'
+import getCookiesForEnv from '../../../src/helpers/cookies'
+
+const cookies = getCookiesForEnv()
 
 describe('helpers::cookies', function () {
   afterEach(function () {

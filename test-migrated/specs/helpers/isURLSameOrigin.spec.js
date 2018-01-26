@@ -1,4 +1,6 @@
-import isURLSameOrigin from '../../../src/helpers/isURLSameOrigin'
+import getSameOriginCheckForEnv from '../../../src/helpers/isURLSameOrigin'
+
+const isURLSameOrigin = getSameOriginCheckForEnv()
 
 describe('helpers::isURLSameOrigin', function () {
   it('should detect same origin', function () {

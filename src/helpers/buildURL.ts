@@ -1,5 +1,5 @@
 import { isURLSearchParams } from './../utils'
-import { forEach, isObject, isDate, isArray } from 'lodash'
+import { forOwn, isObject, isDate, isArray } from 'lodash'
 
 function encode (val) {
   return encodeURIComponent(val).
@@ -33,7 +33,8 @@ export default function buildURL (url, params, paramsSerializer) {
   } else {
     let parts = []
 
-    forEach(params, function serialize (val, key) {
+    forOwn(params, function serialize (val, key) {
+      console.log(val, key)
       if (val === null || typeof val === 'undefined') {
         return
       }
@@ -44,7 +45,7 @@ export default function buildURL (url, params, paramsSerializer) {
         val = [val]
       }
 
-      forEach(val, function parseValue (v) {
+      val.forEach(function parseValue (v) {
         if (isDate(v)) {
           v = v.toISOString()
         } else if (isObject(v)) {

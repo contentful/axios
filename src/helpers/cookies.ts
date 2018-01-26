@@ -7,12 +7,21 @@ export interface BrowserEnvCookie {
   remove: (name: string) => void
 }
 
+// TODO: really necessary? Currently only for tests
+let cachedCookies
+
 export default function getCookiesForEnv (): BrowserEnvCookie {
-  if (isStandardBrowserEnv()) {
-    return standardBrowserEnv()
-  } else {
-    return nonStandardBrowserEnv()
+  if (cachedCookies) {
+    return cachedCookies
   }
+
+  if (isStandardBrowserEnv()) {
+    cachedCookies = standardBrowserEnv()
+  } else {
+    cachedCookies = nonStandardBrowserEnv()
+  }
+
+  return cachedCookies
 }
 
 // Standard browser envs support document.cookie

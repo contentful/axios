@@ -20,7 +20,7 @@ import * as zlib from 'zlib'
 import createError from '../core/createError'
 import enhanceError from '../core/enhanceError'
 
-let pkg = require('./../../../package.json')
+let pkg = require('./../../package.json')
 
 export type AxiosRequestOptions = http.RequestOptions & {
   maxRedirects?: number
@@ -167,18 +167,17 @@ export default function httpAdapter (config) {
       // return the last request in case of redirects
       let lastRequest = res.req || req
 
-      let responsePartial = {
+      let response: AxiosResponse = {
         status: res.statusCode,
         statusText: res.statusMessage,
         headers: res.headers,
         config: config,
-        request: lastRequest
+        request: lastRequest,
+        data: null
       }
 
-      let response: AxiosResponse
-
       if (config.responseType === 'stream') {
-        response = extend({}, responsePartial, { data: stream })
+        response = extend({}, response, { data: stream })
         settle(resolve, reject, response)
       } else {
         let responseBuffer = []
